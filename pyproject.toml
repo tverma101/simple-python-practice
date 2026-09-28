@@ -17,6 +17,7 @@ dependencies = [
 [project.optional-dependencies]
 dev = [
     "pytest>=7.0",
+    "pytest-timeout>=2.3",
     "ruff>=0.4.0",
 ]
 
@@ -36,6 +37,18 @@ ducky = ["data/quizzes/*.json"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+# No single test may hang a CI job. The suite takes ~2.5 min in total, so 120s
+# per test is roughly two orders of magnitude of headroom and still bounds a
+# stuck test to two minutes instead of GitHub's 6-hour job limit.
+#
+# This is not theoretical. The macOS runner hung `pytest` indefinitely on the
+# live-Tk test, which builds a real `tk.Tk()` root: on a runner with a window
+# server available that construction *succeeds* rather than raising TclError, so
+# the test does not take its skip path and then blocks. `thread` method so the
+# timeout is enforced even when the test is stuck in C code, and the default
+# signal method cannot interrupt Tk.
+timeout = 120
+timeout_method = "thread"
 
 [tool.ruff]
 line-length = 120
