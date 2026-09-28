@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "quiz_id": "core.concepts.2",
+  "lesson_id": "core_concepts",
+  "title": "Equality, Identity and Indexing",
+  "description": "Two short checks on list equality versus identity and on tuple indexing. Original to this project.",
+  "source": "Original to this project.",
+  "shuffle_questions": false,
+  "review_mode": "missed_first",
+  "questions": [
+    {
+      "id": "core-q29",
+      "type": "multiple_choice",
+      "prompt": "after `a = [1, 2]` and `b = a[:]`, which statement is true?",
+      "options": [
+        "`a == b` is True, but `a is b` is False",
+        "Both `a == b` and `a is b` are True",
+        "`a == b` is False, but `a is b` is True",
+        "Both `a == b` and `a is b` are False"
+      ],
+      "correct": "`a == b` is True, but `a is b` is False",
+      "explanation": "Slicing creates a new list with the same contents. Equality compares contents, so a == b is true; identity compares object references, so a is b is false.",
+      "concept": "equality and identity",
+      "difficulty": 45
+    },
+    {
+      "id": "core-q30",
+      "type": "predict_output",
+      "prompt": "what does this tuple-indexing code print?",
+      "code": "point = (4, 9)\nprint(point[0], point[-1])",
+      "correct": "4 9",
+      "explanation": "Index 0 selects the first tuple item, 4, while index -1 selects the last item, 9. Negative indexes count backward from the end and do not mutate the tuple.",
+      "concept": "tuple indexing",
+      "difficulty": 30
+    }
+  ]
+}

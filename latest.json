@@ -1,0 +1,18 @@
+{
+  "build_type": "student",
+  "package": "ducky_student",
+  "version": "0.5.2",
+  "build_id": "5711d36ead7454b8-1790553982246557000",
+  "download_url": "https://pub-be8cbd81214d42469aa45b91d710100b.r2.dev/releases/v0.5.2-5711d36ead7454b8-1790553982246557000/ducky_student-v0.5.2.zip",
+  "zip_url": "https://pub-be8cbd81214d42469aa45b91d710100b.r2.dev/releases/v0.5.2-5711d36ead7454b8-1790553982246557000/ducky_student-v0.5.2.zip",
+  "wheel_url": "https://pub-be8cbd81214d42469aa45b91d710100b.r2.dev/releases/v0.5.2-5711d36ead7454b8-1790553982246557000/ducky_student-0.5.2-py3-none-any.whl",
+  "latest_zip_url": "https://pub-be8cbd81214d42469aa45b91d710100b.r2.dev/student-latest.zip",
+  "latest_wheel_url": "https://pub-be8cbd81214d42469aa45b91d710100b.r2.dev/student-latest.whl",
+  "versioned_zip_url": "https://pub-be8cbd81214d42469aa45b91d710100b.r2.dev/releases/v0.5.2-5711d36ead7454b8-1790553982246557000/ducky_student-v0.5.2.zip",
+  "versioned_wheel_url": "https://pub-be8cbd81214d42469aa45b91d710100b.r2.dev/releases/v0.5.2-5711d36ead7454b8-1790553982246557000/ducky_student-0.5.2-py3-none-any.whl",
+  "sha256": "343c94e9579633b56e980adf29a0e8bdf3fd208fe8f45c976155aef911e2d311",
+  "wheel_sha256": "bd8eb863464ff3808ef701e6e5583c08194dfe918a7ae7d3ce4938a164c9209a",
+  "min_python": "3.10",
+  "release_notes": "Student-only release generated from the current project version.",
+  "released_at": "2026-09-28T00:06:24Z"
+}

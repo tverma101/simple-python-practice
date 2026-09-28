@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "quiz_id": "platform.python.boolean.10",
+  "lesson_id": "python.boolean",
+  "title": "Python Boolean Expressions",
+  "description": "Combine comparisons with and, or, and not. Read each expression slowly and track the resulting True or False value.",
+  "source": "Ducky Beginner Python Quiz Series",
+  "shuffle_questions": true,
+  "review_mode": "missed_first",
+  "time_limit_seconds": 600,
+  "questions": [
+    {"id": "q01", "type": "multiple_choice", "prompt": "What must be true for A and B to be True?", "options": ["Both A and B", "Only A", "Only B", "Neither A nor B"], "correct": "Both A and B", "explanation": "and requires every part of the expression to be true.", "concept": "and", "difficulty": 12},
+    {"id": "q02", "type": "predict_output", "prompt": "What does this code print?", "code": "age = 14\nhas_ticket = True\nprint(age >= 13 and has_ticket)", "correct": "True", "explanation": "Both age >= 13 and has_ticket are true, so and produces True.", "concept": "and evaluation", "difficulty": 15},
+    {"id": "q03", "type": "true_false", "prompt": "A or expression is True when at least one of its parts is True.", "correct": "true", "explanation": "or needs one or more true parts; it is false only when every part is false.", "concept": "or", "difficulty": 10},
+    {"id": "q04", "type": "multiple_choice", "prompt": "What does not True evaluate to?", "options": ["False", "True", "None", "0"], "correct": "False", "explanation": "not reverses a Boolean value: it changes True to False and False to True.", "concept": "not", "difficulty": 10},
+    {"id": "q05", "type": "predict_output", "prompt": "What does this code print?", "code": "left = False\nright = True\nprint(left or right)", "correct": "True", "explanation": "The right side is true, so the or expression is true even though the left side is false.", "concept": "or evaluation", "difficulty": 12},
+    {"id": "q06", "type": "multiple_choice", "prompt": "Which expression means a value is not equal to 10?", "options": ["value != 10", "value =! 10", "value <> 10", "not value = 10"], "correct": "value != 10", "explanation": "Python writes the not-equal comparison as !=, with an exclamation mark followed by an equals sign.", "concept": "not equal", "difficulty": 12},
+    {"id": "q07", "type": "predict_output", "prompt": "What does this code print?", "code": "ready = True\nlate = False\nprint(not late and ready)", "correct": "True", "explanation": "not late is True, and ready is also True, so the complete and expression is True.", "concept": "combined logic", "difficulty": 18},
+    {"id": "q08", "type": "true_false", "prompt": "An empty string is treated as false in a condition.", "correct": "true", "explanation": "Python considers empty strings, lists, and dictionaries falsy; non-empty ones are truthy.", "concept": "truthiness", "difficulty": 15},
+    {"id": "q09", "type": "multiple_choice", "prompt": "In `True or False and False`, which part is grouped first?", "options": ["False and False", "True or False", "The whole expression is evaluated left to right", "Nothing is grouped first"], "correct": "False and False", "explanation": "and has higher precedence than or, so Python evaluates False and False first. Use parentheses when you want the grouping to be obvious to a reader.", "concept": "precedence", "difficulty": 22},
+    {"id": "q10", "type": "predict_output", "prompt": "What does this code print?", "code": "number = 7\nprint(number > 5 and number < 10)", "correct": "True", "explanation": "7 is greater than 5 and less than 10, so both comparisons are true.", "concept": "range checks", "difficulty": 15}
+  ]
+}

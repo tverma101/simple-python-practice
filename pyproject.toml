@@ -1,0 +1,71 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ducky"
+version = "0.5.2"
+description = "Local-first coding tutor with terminal UI, test runner, teacher-student connection, and anonymized reports."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Ducky Project" }]
+dependencies = [
+    "pytest>=7.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "ruff>=0.4.0",
+]
+
+[project.scripts]
+ducky = "ducky.cli:main"
+ducky-gui = "ducky.gui:main"
+ducky-teacher = "ducky.gui.teacher_gui:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+ducky = ["data/quizzes/*.json"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 120
+# The rule set is pinned explicitly. It used to be implicit, which meant a ruff
+# upgrade could silently change what "lint passes" means -- and did: the
+# unconfigured default grew from E4/E7/E9/F to several hundred rules, turning a
+# clean tree into 405 findings nobody had agreed to. Keep this list deliberate.
+# Add a rule here when you want it, not when a tool version decides for you.
+lint.select = ["E", "F", "W", "I", "UP", "B", "SIM"]
+lint.ignore = [
+    # Long lines are not a defect here; several teacher-facing message strings
+    # read far worse when wrapped.
+    "E501",
+    # Bare except is used deliberately at process boundaries where we must not
+    # let a teardown error mask the real failure.
+    "E722",
+    # Below are pure style, and the code they flag is overwhelmingly Tkinter
+    # widget construction where the rewrite is churn with real regression risk and
+    # no readability gain. Left enabled they would be fixed; leaving them ignored
+    # keeps the linter's remaining signal trustworthy. Revisit if the widget code
+    # is ever refactored wholesale.
+    "SIM101",  # merge nested ifs
+    "SIM102",  # collapse nested ifs
+    "SIM103",  # explicit bool return
+    "SIM105",  # contextlib.suppress instead of try/except/pass
+    "SIM108",  # ternary instead of if/else assignment
+    "SIM117",  # single `with` for nested context managers
+    "E741",    # `l` as a variable name -- fine in short numeric loops
+]
+
+[tool.ruff.lint.per-file-ignores]
+# Test modules import fixtures and helpers that look unused to the linter.
+"tests/*" = ["F401", "F811"]

@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "quiz_id": "platform.python.strings.10",
+  "lesson_id": "python.strings",
+  "title": "Python Strings in Practice",
+  "description": "Work with text using indexing, slicing, methods, and f-strings. The examples use short values so the result is easy to trace.",
+  "source": "Ducky Beginner Python Quiz Series",
+  "shuffle_questions": true,
+  "review_mode": "missed_first",
+  "time_limit_seconds": 600,
+  "questions": [
+    {"id": "q01", "type": "predict_output", "prompt": "What does this code print?", "code": "word = 'Python'\nprint(word[1])", "correct": "y", "explanation": "String indexes start at zero, so index 1 selects the second character, y.", "concept": "string indexing", "difficulty": 12},
+    {"id": "q02", "type": "multiple_choice", "prompt": "Which method removes whitespace from both ends of a string?", "options": ["strip()", "strip_whitespace()", "replace(' ', '')", "lstrip()"], "correct": "strip()", "explanation": "strip removes leading and trailing whitespace. It does not remove spaces between words.", "concept": "string methods", "difficulty": 12},
+    {"id": "q03", "type": "true_false", "prompt": "Strings are immutable, so a string method returns a new string instead of changing the original in place.", "correct": "true", "explanation": "Operations such as upper and replace create a new string value; the original string object is not edited in place.", "concept": "immutability", "difficulty": 20},
+    {"id": "q04", "type": "predict_output", "prompt": "What does this code print?", "code": "text = 'hello'\nprint(text.upper())", "correct": "HELLO", "explanation": "upper returns a new copy with all alphabetic characters converted to uppercase.", "concept": "upper", "difficulty": 10},
+    {"id": "q05", "type": "multiple_choice", "prompt": "What does the slice text[1:4] include?", "options": ["Indexes 1, 2, and 3", "Indexes 1, 2, 3, and 4", "Only index 4", "The whole string"], "correct": "Indexes 1, 2, and 3", "explanation": "A slice includes the start index and stops before the end index.", "concept": "slicing", "difficulty": 18},
+    {"id": "q06", "type": "predict_output", "prompt": "What does this code print?", "code": "name = 'Ari'\nage = 12\nprint(f'{name} is {age}')", "correct": "Ari is 12", "explanation": "An f-string replaces each expression in braces with its value.", "concept": "f strings", "difficulty": 12},
+    {"id": "q07", "type": "multiple_choice", "prompt": "What does 'a,b,c'.split(',') return?", "options": ["['a', 'b', 'c']", "('a', 'b', 'c')", "'abc'", "['a,b,c']"], "correct": "['a', 'b', 'c']", "explanation": "split breaks a string at the separator and returns a list of pieces.", "concept": "split", "difficulty": 18},
+    {"id": "q08", "type": "true_false", "prompt": "The in operator can check whether a substring occurs inside a string.", "correct": "true", "explanation": "The in operator checks membership; for example, 'py' in 'python' is True because those characters occur together.", "concept": "membership", "difficulty": 12},
+    {"id": "q09", "type": "predict_output", "prompt": "What does this code print?", "code": "message = 'red blue'\nprint(message.replace('blue', 'green'))", "correct": "red green", "explanation": "replace returns a new string with the matching text substituted.", "concept": "replace", "difficulty": 15},
+    {"id": "q10", "type": "multiple_choice", "prompt": "What is the result of len('cat')?", "options": ["3", "2", "4", "'cat'"], "correct": "3", "explanation": "len counts characters, and cat contains three characters.", "concept": "length", "difficulty": 10}
+  ]
+}

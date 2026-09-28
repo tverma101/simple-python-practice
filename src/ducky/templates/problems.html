@@ -1,0 +1,55 @@
+<h1 style="font-size:var(--text-xl);margin:0 0 var(--space-4)">
+  {{ total }} problem{% if total != 1 %}s{% endif %}
+</h1>
+<form method="get" action="/practice" style="display:flex;gap:var(--space-2);flex-wrap:wrap;align-items:flex-end;margin-bottom:var(--space-5)">
+  <div>
+    <label for="q" style="display:block;font-size:var(--text-sm);font-weight:600;margin-bottom:var(--space-1)">Search titles</label>
+    <input id="q" name="q" value="{{ filters.q }}" style="min-height:var(--target-min);padding:0 var(--space-3);font:inherit;border:1px solid var(--border-strong);border-radius:var(--radius-md);background:var(--bg-surface);color:var(--text-primary)">
+  </div>
+  <div>
+    <label for="difficulty" style="display:block;font-size:var(--text-sm);font-weight:600;margin-bottom:var(--space-1)">Difficulty</label>
+    <select id="difficulty" name="difficulty" style="min-height:var(--target-min);padding:0 var(--space-3);font:inherit;border:1px solid var(--border-strong);border-radius:var(--radius-md);background:var(--bg-surface);color:var(--text-primary)">
+      <option value="">Any</option>
+      {% for level in difficulties %}<option value="{{ level }}">{{ level }}</option>{% endfor %}
+    </select>
+  </div>
+  <button class="btn" type="submit">Filter</button>
+</form>
+{% if problems %}
+<ul style="list-style:none;margin:0;padding:0;display:grid;gap:var(--space-2)">
+  {% for p in problems %}
+  <li>
+    <a href="/p/{{ p.slug }}" style="display:flex;gap:var(--space-3);align-items:center;flex-wrap:wrap;padding:var(--space-3);border:1px solid var(--border-subtle);border-radius:var(--radius-md);background:var(--bg-surface);text-decoration:none;color:inherit">
+      <span style="font-weight:600;flex:1 1 16rem;min-width:0;overflow-wrap:anywhere">{{ p.title }}</span>
+      <span class="chip">{{ p.difficulty }}</span>
+    </a>
+  </li>
+  {% endfor %}
+</ul>
+{% if truncated %}
+<nav class="pager" aria-label="Problem list pages">
+  <p class="pager__status">
+    Showing {{ first_shown }}&ndash;{{ last_shown }} of {{ total }}
+  </p>
+  <div class="pager__controls">
+    {% if page_no > 1 %}
+      <a class="btn" rel="prev"
+         href="?page={{ page_no - 1 }}{% if filters.q %}&amp;q={{ filters.q }}{% endif %}{% if filters.topic %}&amp;topic={{ filters.topic }}{% endif %}{% if filters.difficulty %}&amp;difficulty={{ filters.difficulty }}{% endif %}">
+        &larr; Previous
+      </a>
+    {% endif %}
+    <span class="pager__page">Page {{ page_no }} of {{ page_count }}</span>
+    {% if page_no < page_count %}
+      <a class="btn" rel="next"
+         href="?page={{ page_no + 1 }}{% if filters.q %}&amp;q={{ filters.q }}{% endif %}{% if filters.topic %}&amp;topic={{ filters.topic }}{% endif %}{% if filters.difficulty %}&amp;difficulty={{ filters.difficulty }}{% endif %}">
+        Next &rarr;
+      </a>
+    {% endif %}
+  </div>
+</nav>
+{% endif %}
+{% else %}
+<div class="empty">
+  <p>No problems match those filters.</p>
+</div>
+{% endif %}

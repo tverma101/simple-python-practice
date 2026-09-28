@@ -1,0 +1,29 @@
+{
+  "pack_version": "1.0",
+  "lesson_id": "python_basics.lesson_01_return_values",
+  "title": "Return Values",
+  "language": "python",
+  "entry_file": "lesson_01.py",
+  "test_command": "python -m pytest tests/",
+  "concept_tags": ["functions", "return_vs_print"],
+  "diagnostic_cases": [
+    {
+      "name": "adds two numbers",
+      "function_name": "add_numbers",
+      "args": [2, 3],
+      "expected": 5
+    },
+    {
+      "name": "adds zero",
+      "function_name": "add_numbers",
+      "args": [0, 8],
+      "expected": 8
+    },
+    {
+      "name": "adds negative numbers",
+      "function_name": "add_numbers",
+      "args": [-2, -4],
+      "expected": -6
+    }
+  ]
+}

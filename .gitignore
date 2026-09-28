@@ -1,0 +1,46 @@
+__pycache__/
+*.pyc
+.venv/
+venv/
+build/
+*.egg-info/
+
+# Tool caches. Listed explicitly: pytest and ruff each drop a self-ignoring
+# .gitignore inside their cache dir, so they stay invisible only until one of
+# those tools changes that behavior or the cache is copied in from elsewhere.
+.pytest_cache/
+.ruff_cache/
+
+.ducky/
+~/.ducky/
+logs/
+*.log
+reports/
+dataset/
+outbox/
+*.db
+*.sqlite
+*.jsonl
+
+.env
+.env.*
+*.key
+*.pem
+.DS_Store
+.claude/
+.freebuff/
+.wrangler/
+
+# Build artifacts. NOTE: dist/ is intentionally NOT ignored -- dist/latest.json
+# is the checked-in release manifest that self_update.py and the R2 pipeline read.
+# See .github/copilot-instructions.md "Distribution" before moving files around.
+downloads/
+*.whl
+*.zip
+!examples/packs/*.duckypack
+
+# Screenshots / stray student work
+Screenshot*.png
+
+# Runtime lock left behind by self_update when a run is interrupted
+.ducky-update.lock

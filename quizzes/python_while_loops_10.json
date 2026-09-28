@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "quiz_id": "platform.python.while_loops.10",
+  "lesson_id": "python.while_loops",
+  "title": "Python while Loops",
+  "description": "Understand loop conditions, progress, and safe stopping. Trace the counter before worrying about larger programs.",
+  "source": "Ducky Beginner Python Quiz Series",
+  "shuffle_questions": true,
+  "review_mode": "missed_first",
+  "time_limit_seconds": 600,
+  "questions": [
+    {"id": "q01", "type": "predict_output", "prompt": "What does this code print?", "code": "count = 1\nwhile count <= 3:\n    print(count)\n    count += 1", "correct": "1\n2\n3", "explanation": "The counter prints 1, 2, and 3, then becomes 4 and makes the condition false.", "concept": "while condition", "difficulty": 15},
+    {"id": "q02", "type": "multiple_choice", "prompt": "What is essential for most counter-based while loops?", "options": ["Changing a value so the condition can become false", "Adding a break is always required", "Replacing the condition with print", "Calling the loop from main"], "correct": "Changing a value so the condition can become false", "explanation": "Without progress toward the stopping condition, the loop may run forever.", "concept": "loop progress", "difficulty": 15},
+    {"id": "q03", "type": "true_false", "prompt": "while True creates a loop that needs a break or another exit path to stop.", "correct": "true", "explanation": "The condition never becomes false by itself, so the body must explicitly leave the loop.", "concept": "while true", "difficulty": 15},
+    {"id": "q04", "type": "predict_output", "prompt": "What does this code print?", "code": "number = 4\nwhile number > 1:\n    number -= 1\nprint(number)", "correct": "1", "explanation": "The loop subtracts one until number is no longer greater than 1.", "concept": "decrement", "difficulty": 12},
+    {"id": "q05", "type": "multiple_choice", "prompt": "When is a while loop usually a better fit than a for loop?", "options": ["When repetition depends on a condition rather than a known sequence", "When a sequence length is already known", "When you need each item in a collection", "When the body has no condition"], "correct": "When repetition depends on a condition rather than a known sequence", "explanation": "while is useful when the number of iterations is not known in advance and a condition controls the work.", "concept": "loop choice", "difficulty": 18},
+    {"id": "q06", "type": "predict_output", "prompt": "What does this code print?", "code": "total = 0\nvalue = 1\nwhile value <= 3:\n    total += value\n    value += 1\nprint(total)", "correct": "6", "explanation": "The accumulator adds 1, 2, and 3 for a total of 6.", "concept": "while accumulator", "difficulty": 18},
+    {"id": "q07", "type": "true_false", "prompt": "A while loop checks its condition before each iteration.", "correct": "true", "explanation": "If the condition is false before the first check, the body runs zero times.", "concept": "condition timing", "difficulty": 12},
+    {"id": "q08", "type": "multiple_choice", "prompt": "What does break do in a while loop?", "options": ["Leaves the loop immediately", "Skips the current iteration", "Restarts the loop body", "Changes the loop condition"], "correct": "Leaves the loop immediately", "explanation": "break exits the nearest loop and continues with the statement after it.", "concept": "break", "difficulty": 10},
+    {"id": "q09", "type": "predict_output", "prompt": "What does this code print?", "code": "attempts = 0\nwhile attempts < 2:\n    attempts += 1\nprint('done')", "correct": "done", "explanation": "After two iterations attempts is 2, so the loop ends and done is printed.", "concept": "loop completion", "difficulty": 12},
+    {"id": "q10", "type": "multiple_choice", "prompt": "What is the first thing to inspect when a while loop never ends?", "options": ["Whether the loop condition can become false", "Whether a new value is assigned to the counter", "Whether a nested for loop is needed", "Whether the condition is written as a string"], "correct": "Whether the loop condition can become false", "explanation": "Check the variables in the condition and confirm the body updates them toward a stopping state.", "concept": "infinite loop debugging", "difficulty": 15}
+  ]
+}

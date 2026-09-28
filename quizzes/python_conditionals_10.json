@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "quiz_id": "platform.python.conditionals.10",
+  "lesson_id": "python.conditionals",
+  "title": "Python Conditional Logic",
+  "description": "Trace if, elif, and else branches. These questions focus on choosing the correct branch, not on syntax memorization alone.",
+  "source": "Ducky Beginner Python Quiz Series",
+  "shuffle_questions": true,
+  "review_mode": "missed_first",
+  "time_limit_seconds": 600,
+  "questions": [
+    {"id": "q01", "type": "multiple_choice", "prompt": "Which branch runs when an if condition is false and the next condition is true?", "options": ["elif", "if", "else", "try"], "correct": "elif", "explanation": "elif means else if: Python checks it after the earlier if condition fails.", "concept": "if elif", "difficulty": 12},
+    {"id": "q02", "type": "predict_output", "prompt": "What does this code print?", "code": "score = 84\nif score > 89:\n    result = 'A'\nelif score > 79:\n    result = 'B'\nelse:\n    result = 'C'\nprint(result)", "correct": "B", "explanation": "84 is not greater than 89 but is greater than 79, so the elif branch assigns B.", "concept": "branch order", "difficulty": 18},
+    {"id": "q03", "type": "true_false", "prompt": "An else branch runs only when every preceding if or elif condition is false.", "correct": "true", "explanation": "else is the fallback branch after all earlier conditions have failed.", "concept": "else", "difficulty": 10},
+    {"id": "q04", "type": "multiple_choice", "prompt": "Which operator tests whether two values are equal?", "options": ["==", "=", "!=", ">="], "correct": "==", "explanation": "== compares values. A single = assigns a value to a name.", "concept": "comparisons", "difficulty": 10},
+    {"id": "q05", "type": "predict_output", "prompt": "What does this code print?", "code": "temperature = 68\nif temperature >= 70:\n    print('warm')\nelse:\n    print('cool')", "correct": "cool", "explanation": "68 is not at least 70, so the else branch prints cool.", "concept": "comparison branches", "difficulty": 12},
+    {"id": "q06", "type": "multiple_choice", "prompt": "Why is the order of grade conditions important?", "options": ["The first true branch is the one Python uses", "Python checks every branch after the first match", "The final else branch is checked before the conditions", "Reordering conditions changes the type of the score"], "correct": "The first true branch is the one Python uses", "explanation": "Once an if or elif condition is true, Python skips the remaining branches in that chain.", "concept": "first true branch", "difficulty": 18},
+    {"id": "q07", "type": "predict_output", "prompt": "What does this code print?", "code": "number = -2\nif number > 0:\n    print('positive')\nelif number == 0:\n    print('zero')\nelse:\n    print('negative')", "correct": "negative", "explanation": "-2 is neither greater than zero nor equal to zero, so the fallback branch runs.", "concept": "else branch", "difficulty": 15},
+    {"id": "q08", "type": "true_false", "prompt": "Indentation tells Python which statements belong to a conditional branch.", "correct": "true", "explanation": "The indented block after the colon is the code controlled by that condition.", "concept": "indentation", "difficulty": 10},
+    {"id": "q09", "type": "multiple_choice", "prompt": "What does 5 <= 5 evaluate to?", "options": ["True", "False", "5", "None"], "correct": "True", "explanation": "<= means less than or equal to, and 5 is equal to 5.", "concept": "comparison boundaries", "difficulty": 12},
+    {"id": "q10", "type": "predict_output", "prompt": "What does this code print?", "code": "items = []\nif items:\n    print('has items')\nelse:\n    print('empty')", "correct": "empty", "explanation": "An empty list is falsy in a condition, so the else branch runs.", "concept": "truthiness", "difficulty": 18}
+  ]
+}

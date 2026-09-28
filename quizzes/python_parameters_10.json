@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "quiz_id": "platform.python.parameters.10",
+  "lesson_id": "python.parameters",
+  "title": "Python Parameters and Arguments",
+  "description": "Use function inputs confidently: positional arguments, keyword arguments, defaults, and simple validation.",
+  "source": "Ducky Beginner Python Quiz Series",
+  "shuffle_questions": true,
+  "review_mode": "missed_first",
+  "time_limit_seconds": 600,
+  "questions": [
+    {"id": "q01", "type": "predict_output", "prompt": "What does this code print?", "code": "def label(item, count):\n    return item + ': ' + str(count)\n\nprint(label('apples', 3))", "correct": "apples: 3", "explanation": "The first positional argument fills item and the second fills count; str converts the number for concatenation.", "concept": "positional arguments", "difficulty": 18},
+    {"id": "q02", "type": "multiple_choice", "prompt": "What is the main benefit of a default parameter?", "options": ["The caller may omit that argument", "It makes every argument a string", "It forces the caller to use a keyword", "It changes the parameter's type"], "correct": "The caller may omit that argument", "explanation": "A default supplies a value when the caller does not provide that parameter.", "concept": "default parameters", "difficulty": 15},
+    {"id": "q03", "type": "true_false", "prompt": "Keyword arguments can make a call clearer by naming the parameters being filled.", "correct": "true", "explanation": "A call such as describe(name='Maya', age=12) makes each value's purpose explicit.", "concept": "keyword arguments", "difficulty": 12},
+    {"id": "q04", "type": "predict_output", "prompt": "What does this code print?", "code": "def power(base, exponent=2):\n    return base ** exponent\n\nprint(power(3))", "correct": "9", "explanation": "No exponent is supplied, so the default 2 is used: 3 squared is 9.", "concept": "default values", "difficulty": 18},
+    {"id": "q05", "type": "multiple_choice", "prompt": "What happens when a function receives more positional arguments than it accepts?", "options": ["Python raises TypeError", "Python uses only the accepted arguments", "Python collects them into a list automatically", "Python treats the extras as keyword arguments"], "correct": "Python raises TypeError", "explanation": "The call does not match the function signature, so Python raises a TypeError before the body finishes.", "concept": "function signatures", "difficulty": 18},
+    {"id": "q06", "type": "predict_output", "prompt": "What does this code print?", "code": "def difference(first, second):\n    return first - second\n\nprint(difference(10, 3))", "correct": "7", "explanation": "The first argument is 10 and the second is 3, so the subtraction returns 7.", "concept": "argument order", "difficulty": 12},
+    {"id": "q07", "type": "multiple_choice", "prompt": "Which call uses a keyword argument?", "options": ["send(message='hello')", "send('hello')", "send()", "def send(message):"], "correct": "send(message='hello')", "explanation": "The name message= identifies the parameter explicitly; the others either use position or define the function.", "concept": "keyword syntax", "difficulty": 15},
+    {"id": "q08", "type": "true_false", "prompt": "The order of positional arguments matters when parameters have different meanings.", "correct": "true", "explanation": "Python assigns positional values from left to right, so swapping them can change the result.", "concept": "positional order", "difficulty": 12},
+    {"id": "q09", "type": "predict_output", "prompt": "What does this code print?", "code": "def describe(name, age):\n    return f'{name} is {age}'\n\nprint(describe(age=12, name='Lee'))", "correct": "Lee is 12", "explanation": "Keyword arguments match by name, so their order in the call does not have to match the definition.", "concept": "keyword calls", "difficulty": 20},
+    {"id": "q10", "type": "multiple_choice", "prompt": "What should a function do when it receives invalid input?", "options": ["Follow the assignment's stated validation behavior", "Return a value that is not documented", "Change the caller's data", "Silently accept every value"], "correct": "Follow the assignment's stated validation behavior", "explanation": "A clear contract tells the caller whether to return a value, a status, or another documented result for invalid input.", "concept": "function contracts", "difficulty": 20}
+  ]
+}

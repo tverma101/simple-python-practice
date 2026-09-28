@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>{{ problem.title }} · Simple Python Practice</title>
+<link rel="stylesheet" href="/static/css/tokens.css">
+<link rel="stylesheet" href="/static/css/workspace.css">
+<!-- Inlined, not <script src>. An external import map is fetched
+     asynchronously and does not reliably block module resolution, so the
+     module graph can be built before the map lands and every specifier then
+     fails. This is a failure this project hit and fixed. -->
+<script type="importmap">
+{
+  "imports": {
+    "@codemirror/state": "/static/vendor/cm/state.js",
+    "@codemirror/view": "/static/vendor/cm/view.js",
+    "@codemirror/language": "/static/vendor/cm/language.js",
+    "@codemirror/commands": "/static/vendor/cm/commands.js",
+    "@codemirror/search": "/static/vendor/cm/search.js",
+    "@codemirror/autocomplete": "/static/vendor/cm/autocomplete.js",
+    "@codemirror/lang-python": "/static/vendor/cm/lang-python.js",
+    "@codemirror/theme-one-dark": "/static/vendor/cm/theme-one-dark.js",
+    "@lezer/python": "/static/vendor/cm/python.js",
+    "@lezer/common": "/static/vendor/cm/common.js",
+    "@lezer/lr": "/static/vendor/cm/lr.js",
+    "@lezer/highlight": "/static/vendor/cm/highlight.js",
+    "style-mod": "/static/vendor/cm/style-mod.js",
+    "w3c-keyname": "/static/vendor/cm/w3c-keyname.js",
+    "crelt": "/static/vendor/cm/crelt.js",
+    "@marijn/find-cluster-break": "/static/vendor/cm/marijn-find-cluster-break.js"
+  }
+}
+</script>
+</head>
+<body data-slug="{{ problem.slug }}" data-starter="{{ problem.starter_code }}">
+<a class="skip-link" href="#main">Skip to the editor</a>
+<main id="main" class="workspace">
+
+  <header class="topbar">
+    <a class="btn btn--ghost" href="/practice">
+      <span class="icon" aria-hidden="true">←</span> All problems
+    </a>
+    <p class="topbar__title">{{ problem.title }}</p>
+    <div class="topbar__spacer"></div>
+    <form class="signin signin--inline" id="signin" hidden>
+      <label class="visually-hidden" for="access_code">Access code</label>
+      <input class="input" id="access_code" name="access_code" type="text"
+             inputmode="numeric" autocomplete="off" spellcheck="false"
+             placeholder="Access code" size="10">
+      <button class="btn btn--primary" type="submit">Sign in</button>
+      <span class="signin__status" id="signin-status" role="status"></span>
+    </form>
+    <span class="savestate" id="save-state" data-state="idle" role="status" aria-live="polite"></span>
+    <button type="button" class="btn btn--ghost" id="theme-toggle" aria-pressed="false">
+      <span class="icon" aria-hidden="true">◐</span> Theme
+    </button>
+  </header>
+
+  <!-- Description pane -->
+  <section class="pane" aria-labelledby="tabs-label">
+    <h2 id="tabs-label" class="visually-hidden">Problem sections</h2>
+    <div class="tabs" role="tablist" aria-label="Problem sections">
+      <button type="button" class="tab" role="tab" id="tab-description"
+              aria-controls="panel-description" aria-selected="true" tabindex="0">Description</button>
+      <button type="button" class="tab" role="tab" id="tab-examples"
+              aria-controls="panel-examples" aria-selected="false" tabindex="-1">
+        Examples <span class="tab__count">{{ visible_cases|length }}</span>
+      </button>
+      <button type="button" class="tab" role="tab" id="tab-results"
+              aria-controls="panel-results" aria-selected="false" tabindex="-1">
+        Results <span class="tab__count" id="results-count">0</span>
+      </button>
+    </div>
+
+    <div class="pane__body">
+      <div class="tabpanel" role="tabpanel" id="panel-description"
+           aria-labelledby="tab-description" tabindex="0">
+        <h1 class="problem-title">{{ problem.title }}</h1>
+        <div class="problem-meta">
+          <span class="chip chip--{{ problem.difficulty|lower }}">{{ problem.difficulty }}</span>
+          {% if problem.time_complexity %}<span class="chip">Time {{ problem.time_complexity }}</span>{% endif %}
+          {% if problem.space_complexity %}<span class="chip">Space {{ problem.space_complexity }}</span>{% endif %}
+          {% for tag in problem.tags %}<span class="chip">{{ tag }}</span>{% endfor %}
+        </div>
+        {% if problem.function_signature %}
+        <p style="font-weight:600;margin-bottom:var(--space-1)">Implement this function</p>
+        <code class="signature">{{ problem.function_signature }}</code>
+        {% endif %}
+        <div class="prose">{{ problem.description }}</div>
+        {% if problem.learning_outcomes %}
+        <h2 style="font-size:var(--text-base);margin-top:var(--space-5)">What you should practise</h2>
+        <ul class="prose">{% for item in problem.learning_outcomes %}<li>{{ item }}</li>{% endfor %}</ul>
+        {% endif %}
+        {% if problem.optimal_approach %}
+        <h2 style="font-size:var(--text-base);margin-top:var(--space-5)">A way through it</h2>
+        <div class="prose">{{ problem.optimal_approach }}</div>
+        {% endif %}
+      </div>
+
+      <div class="tabpanel" role="tabpanel" id="panel-examples"
+           aria-labelledby="tab-examples" tabindex="0" hidden>
+        <h2 style="font-size:var(--text-base)">Test cases you can see</h2>
+        <p style="font-size:var(--text-sm);color:var(--text-secondary)">
+          {% if hidden_count %}
+            {{ visible_cases|length }} shown. {{ hidden_count }} more run when you
+            submit, and their expected output is not shown.
+          {% else %}
+            These are all the test cases. They run when you submit.
+          {% endif %}
+        </p>
+        <div class="results">
+          {% for case in visible_cases %}
+          <div class="result result--pass">
+            <div class="result__head" style="cursor:default">
+              <span class="result__verdict">{{ case.description }}</span>
+            </div>
+            <div class="result__body">
+              {% if case.args %}<div class="kv"><span class="kv__k">Arguments</span><code class="kv__v output">{{ case.args }}</code></div>{% endif %}
+              {% if case.kwargs %}<div class="kv"><span class="kv__k">Arguments</span><code class="kv__v output">{{ case.kwargs }}</code></div>{% endif %}
+              <div class="kv"><span class="kv__k">Expected</span><code class="kv__v output">{{ case.expected }}</code></div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="tabpanel" role="tabpanel" id="panel-results"
+           aria-labelledby="tab-results" tabindex="0" hidden>
+        <!-- The audit found one aria-live in nine templates: results were
+             rendered silently. This region announces the outcome, and focus
+             moves to it on submit. -->
+        <div id="results-region" role="status" aria-live="polite" aria-atomic="true">
+          <div class="empty">
+            <p>Run or submit your code to see results here.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Editor pane -->
+  <section class="pane pane--editor" aria-labelledby="editor-label">
+    <div class="pane__head">
+      <h2 id="editor-label" style="font-size:var(--text-sm);margin:0">Your code</h2>
+      <div class="topbar__spacer"></div>
+      <button type="button" class="btn btn--ghost" id="reset">Reset</button>
+      <button type="button" class="btn" id="run"
+              title="Check your code against the sample tests only. Nothing is recorded.">
+        Run samples
+      </button>
+      <button type="button" class="btn btn--primary" id="submit"
+              title="Run every test, including the ones you cannot see, and record this as done.">
+        Submit solution
+      </button>
+    </div>
+
+    <div class="editor-host" id="editor-host"></div>
+    <!-- Fallback. The old page's only script was a CDN URL; when it failed the
+         whole script block died and every button was inert with no message. -->
+    <textarea class="editor-fallback" id="editor-fallback" hidden
+              aria-label="Python code editor"
+              spellcheck="false" autocapitalize="off" autocomplete="off"
+              autocorrect="off">{{ problem.starter_code }}</textarea>
+
+    <div class="pane__head" style="border-top:1px solid var(--border-subtle);border-bottom:0">
+      <span id="grade-status" class="savestate" role="status" aria-live="polite"></span>
+      <div class="topbar__spacer"></div>
+      <button type="button" class="btn btn--ghost" id="cancel" hidden>Stop</button>
+    </div>
+  </section>
+</main>
+<script type="module" src="/static/js/theme.js"></script>
+<script type="module" src="/static/js/problem.js"></script>
+</body>
+</html>

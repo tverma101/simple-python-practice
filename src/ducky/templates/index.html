@@ -1,0 +1,25 @@
+<h1 style="font-size:var(--text-2xl);margin:0 0 var(--space-2)">Simple Python Practice</h1>
+<p class="prose" style="color:var(--text-secondary)">
+  Pick a problem, write Python in the browser, and get told which tests failed
+  and why. Runs entirely on this machine.
+</p>
+<div style="display:flex;gap:var(--space-3);flex-wrap:wrap;margin-top:var(--space-5)">
+  <a class="btn btn--primary" href="/practice">Browse problems</a>
+  <a class="btn" href="/api/health">Server status</a>
+</div>
+<section style="margin-top:var(--space-7)">
+  <h2 style="font-size:var(--text-lg)">Before you can run code</h2>
+  <p class="prose" style="color:var(--text-secondary)">
+    Browsing is open. Running and submitting needs your access code, so that a
+    run is attributable and one machine cannot be used to saturate the grader.
+  </p>
+  <form id="signin" style="display:flex;gap:var(--space-2);flex-wrap:wrap;align-items:flex-end">
+    <div>
+      <label for="access_code" style="display:block;font-size:var(--text-sm);font-weight:600;margin-bottom:var(--space-1)">Access code</label>
+      <input id="access_code" name="access_code" autocomplete="off" inputmode="numeric"
+             style="min-height:var(--target-min);padding:0 var(--space-3);font:inherit;border:1px solid var(--border-strong);border-radius:var(--radius-md);background:var(--bg-surface);color:var(--text-primary)">
+    </div>
+    <button class="btn btn--primary" type="submit">Start</button>
+  </form>
+  <p id="signin-status" role="status" aria-live="polite" style="margin-top:var(--space-3);min-height:1.5rem"></p>
+</section>

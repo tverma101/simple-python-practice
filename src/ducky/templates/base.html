@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>{{ title }} · Simple Python Practice</title>
+<link rel="stylesheet" href="/static/css/tokens.css">
+<link rel="stylesheet" href="/static/css/workspace.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="topbar">
+  <a class="btn btn--ghost" href="/">Practice</a>
+  <p class="topbar__title">{{ title }}</p>
+  <div class="topbar__spacer"></div>
+  <nav class="topbar__nav" aria-label="Main">
+    <button type="button" class="btn btn--ghost" id="theme-toggle" aria-pressed="false">
+      <span class="icon" aria-hidden="true">◐</span> Theme
+    </button>
+  </nav>
+</header>
+<main id="main">
+{{{ body }}}
+</main>
+<script type="module" src="/static/js/theme.js"></script>
+<script type="module">
+  import { initSignIn } from "/static/js/app.js";
+  initSignIn();
+</script>
+</body>
+</html>

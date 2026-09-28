@@ -1,0 +1,79 @@
+# NOTICE
+
+This project is MIT licensed (see [LICENSE](LICENSE)). That licence covers the
+code in this repository. It does **not** automatically cover everything the
+repository contains, so this file records the exceptions a reader needs to know
+about. Two things are worth reading: vendored third-party JavaScript, and the
+upstream projects this one was built from. A third section records quiz content
+that was adapted from a commercial source and then removed, because its
+absence is itself something a reader should know about.
+
+## 1. Third-party quiz content — removed
+
+An earlier draft of this repository included a quiz derived from **PCEP-30-02
+Topic 8, pages 407-434**, part of the *Certified Entry-Level Python Programmer*
+exam-preparation material published by the **Python Institute / OpenEDG**, a
+commercial vendor. 28 of its 30 items were adapted from that work.
+
+Those items have been **removed** and the file deleted. Adapting a commercial
+exam product does not convey the right to redistribute it, and publishing the
+result under this project's MIT licence would have asserted a licence the
+project does not hold. Nothing derived from that work remains in the repository.
+
+The two original items from that file — on list equality versus identity, and
+on tuple indexing — were kept, because they test generic Python semantics rather
+than anything specific to the source. They now live in
+`quizzes/core_equality_and_indexing.json`, are marked original, and no longer
+carry the `pcep-` identifier or the "PCEP-aligned" label, which would have
+implied a derivation that no longer exists.
+
+PCEP and PCEP-30-02 are trademarks of OpenEDG. This project is not affiliated
+with or endorsed by the Python Institute, and the source work is not
+redistributed here.
+
+## 2. Vendored third-party code
+
+`static/vendor/cm/` contains a vendored build of **CodeMirror 6**, together with
+its Lezer parser packages (`@lezer/python`, `@lezer/common`, `@lezer/lr`,
+`@lezer/highlight`) and the `style-mod` and `w3c-keyname` dependencies. These are
+unmodified third-party ES modules, redistributed as source.
+
+Their licence terms are the upstream ones and they are **not** covered by this
+project's MIT licence. Each vendored file ships next to the bundle it covers as
+`<bundle>.LICENSE`, carrying the original copyright and permission notice —
+`state.LICENSE`, `view.LICENSE`, `python.LICENSE` and the rest. Those files are
+the authoritative terms, and they are MIT-licensed, copyright Marijn Haverbeke
+and others. Nothing in this repository modifies them.
+
+The bundles are served directly to the browser through an import map
+(`static/vendor/cm/importmap.json`); there is no npm dependency, no bundler and
+no build step for the editor.
+
+## 3. Upstream projects
+
+This project is built on top of the maintainer's own earlier work. The
+`ducky` Python package and the practice server in `src/ducky/` descend from
+three prior projects, all MIT licensed, all by the same author:
+
+| Upstream project | What came from it |
+|---|---|
+| `Ducky` | The engine — sandbox, test runner, diagnostics, CLI |
+| `Python-practice-platform` | The content pipeline — the problem database, its schema, and the verification and build tooling |
+| `gpts-school-of-python` | Exercise content authored for this project |
+
+Code that arrived from those projects keeps its original MIT notice. This
+repository's `LICENSE` is the licence for the work as a whole; the table above
+records where the work came from, which MIT itself does not require and which is
+recorded here because a public reader is entitled to know.
+
+## What is not here
+
+The problem library the server grades against is **not** in this repository.
+`tools/build_content.py` reads an upstream `coding_platform.db` produced by the
+Python-practice-platform project and writes the `content.db` the server serves.
+That upstream database is not redistributed here, and neither is the reference
+solution set: `content.db` stores reference solutions in a table that a
+read-only `ContentStore` is refused by a SQLite authorizer, so the running
+server cannot hand them out even to a signed-in student. See
+[`docs/CONTENT_BUILD.md`](docs/CONTENT_BUILD.md) and
+[`docs/CONTENT_VERIFICATION.md`](docs/CONTENT_VERIFICATION.md).

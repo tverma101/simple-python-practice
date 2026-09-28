@@ -1,0 +1,31 @@
+{
+  "quiz_id": "quiz.python_basics.lesson_01_return_values",
+  "lesson_id": "python_basics.lesson_01_return_values",
+  "title": "Return Values Quiz",
+  "description": "Check your understanding of returning values versus printing them.",
+  "questions": [
+    {
+      "id": "q1",
+      "type": "multiple_choice",
+      "prompt": "What value does a Python function return by default if it has no explicit return statement?",
+      "options": ["None", "0", "True", "An empty string"],
+      "correct": "None",
+      "explanation": "A function with no return statement (or a bare 'return') implicitly returns None."
+    },
+    {
+      "id": "q2",
+      "type": "true_false",
+      "prompt": "print('hi') and return 'hi' do the same thing from the caller's perspective.",
+      "correct": "false",
+      "explanation": "print() writes to stdout but returns None; return hands the value back to the caller."
+    },
+    {
+      "id": "q3",
+      "type": "predict_output",
+      "prompt": "What is printed by this code?",
+      "code": "def f(x):\n    return x * 2\n\nprint(f(3))",
+      "correct": "6",
+      "explanation": "f(3) returns 6, so print(f(3)) outputs 6."
+    }
+  ]
+}

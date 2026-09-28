@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "quiz_id": "platform.python.comprehensions.10",
+  "lesson_id": "python.comprehensions",
+  "title": "Python Comprehensions and Sets",
+  "description": "Recognize compact collection-building patterns after you understand ordinary loops and lists.",
+  "source": "Ducky Beginner Python Quiz Series",
+  "shuffle_questions": true,
+  "review_mode": "missed_first",
+  "time_limit_seconds": 600,
+  "questions": [
+    {"id": "q01", "type": "predict_output", "prompt": "What does this code print?", "code": "squares = [n * n for n in range(4)]\nprint(squares)", "correct": "[0, 1, 4, 9]", "explanation": "The comprehension squares 0, 1, 2, and 3 and stores the four results in a list.", "concept": "list comprehensions", "difficulty": 20},
+    {"id": "q02", "type": "multiple_choice", "prompt": "What collection does a set keep automatically?", "options": ["Unique values", "Only strings", "Values in duplicate pairs", "Only sorted values"], "correct": "Unique values", "explanation": "A set stores each distinct value once; duplicate additions do not create duplicate members.", "concept": "sets", "difficulty": 15},
+    {"id": "q03", "type": "true_false", "prompt": "A list comprehension must always contain an if filter.", "correct": "false", "explanation": "The if part is optional. A comprehension can transform every item in its input iterable.", "concept": "comprehension syntax", "difficulty": 12},
+    {"id": "q04", "type": "predict_output", "prompt": "What does this code print?", "code": "even = [n for n in range(6) if n % 2 == 0]\nprint(even)", "correct": "[0, 2, 4]", "explanation": "The filter keeps only numbers whose remainder after division by 2 is zero.", "concept": "comprehension filters", "difficulty": 20},
+    {"id": "q05", "type": "multiple_choice", "prompt": "What is the clearest first step when a comprehension feels confusing?", "options": ["Rewrite it as an ordinary loop", "Add a nested comprehension immediately", "Move the if clause before the for", "Convert the result to a set first"], "correct": "Rewrite it as an ordinary loop", "explanation": "The equivalent loop makes the iteration, condition, and append operation visible before you shorten it again.", "concept": "readability", "difficulty": 18},
+    {"id": "q06", "type": "predict_output", "prompt": "What does this code print?", "code": "letters = {ch for ch in 'banana'}\nprint(len(letters))", "correct": "3", "explanation": "The set contains only b, a, and n, so repeated letters are removed.", "concept": "set uniqueness", "difficulty": 20},
+    {"id": "q07", "type": "multiple_choice", "prompt": "Which expression builds a dictionary mapping numbers to their doubles?", "options": ["{n: n * 2 for n in numbers}", "[n: n * 2 for n in numbers]", "{n * 2 for n in numbers}", "dict = n * 2"], "correct": "{n: n * 2 for n in numbers}", "explanation": "Dictionary comprehensions use key: value before the for clause.", "concept": "dictionary comprehensions", "difficulty": 22},
+    {"id": "q08", "type": "true_false", "prompt": "The expression before for in a list comprehension determines each output item.", "correct": "true", "explanation": "That expression is evaluated for each selected input item and becomes an element of the new list.", "concept": "comprehension output", "difficulty": 15},
+    {"id": "q09", "type": "predict_output", "prompt": "What does this code print?", "code": "names = ['Ari', 'Bo']\nlabels = [name.upper() for name in names]\nprint(labels)", "correct": "['ARI', 'BO']", "explanation": "The expression calls upper for each name and builds a new list without changing names.", "concept": "transformations", "difficulty": 18},
+    {"id": "q10", "type": "multiple_choice", "prompt": "What is a useful reason to prefer a normal loop over a comprehension?", "options": ["The loop is clearer for several steps or branches", "A loop is required whenever a list is created", "A comprehension cannot contain a condition", "Comprehensions can only process strings"], "correct": "The loop is clearer for several steps or branches", "explanation": "Readable code matters; use a loop when the compact form hides meaningful work.", "concept": "code clarity", "difficulty": 18}
+  ]
+}

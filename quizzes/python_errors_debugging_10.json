@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "quiz_id": "platform.python.errors_debugging.10",
+  "lesson_id": "python.errors_debugging",
+  "title": "Python Errors and Debugging",
+  "description": "Identify common Python errors and use the final traceback line to choose the next debugging step.",
+  "source": "Ducky Beginner Python Quiz Series",
+  "shuffle_questions": true,
+  "review_mode": "missed_first",
+  "time_limit_seconds": 600,
+  "questions": [
+    {"id": "q01", "type": "multiple_choice", "prompt": "What kind of error is a missing colon after an if statement?", "options": ["SyntaxError", "KeyError", "ValueError", "IndexError"], "correct": "SyntaxError", "explanation": "Python cannot parse the statement, so it reports a syntax error before running the program.", "concept": "syntax errors", "difficulty": 12},
+    {"id": "q02", "type": "multiple_choice", "prompt": "What does NameError usually mean?", "options": ["A name was used before it was defined or was misspelled", "A list index was too large", "A value was used with an incompatible operation", "A requested module could not be imported"], "correct": "A name was used before it was defined or was misspelled", "explanation": "Check spelling, scope, and whether the assignment statement ran before the name was used.", "concept": "NameError", "difficulty": 15},
+    {"id": "q03", "type": "true_false", "prompt": "The last line of a traceback often names the exception and gives the most useful first clue.", "correct": "true", "explanation": "The traceback path is useful too, but the final exception line usually identifies the immediate problem.", "concept": "tracebacks", "difficulty": 12},
+    {"id": "q04", "type": "predict_output", "prompt": "What exception does this code raise?", "code": "number = 10\nprint(number / 0)", "correct": "ZeroDivisionError", "explanation": "Division by zero is not defined for this operation, so Python raises ZeroDivisionError.", "concept": "ZeroDivisionError", "difficulty": 15},
+    {"id": "q05", "type": "multiple_choice", "prompt": "What exception is likely from values = [1, 2]; values[2]?", "options": ["IndexError", "NameError", "TypeError", "ImportError"], "correct": "IndexError", "explanation": "The valid indexes are 0 and 1; index 2 is outside the list.", "concept": "IndexError", "difficulty": 15},
+    {"id": "q06", "type": "multiple_choice", "prompt": "What exception is likely from {'a': 1}['b']?", "options": ["KeyError", "ValueError", "SyntaxError", "OverflowError"], "correct": "KeyError", "explanation": "The dictionary does not contain key b. get can provide a fallback when that behavior is appropriate.", "concept": "KeyError", "difficulty": 15},
+    {"id": "q07", "type": "true_false", "prompt": "Changing a protected test file is a valid way to make an assignment pass.", "correct": "false", "explanation": "Tests describe the assignment contract. Changing them hides the problem and Ducky detects test tampering.", "concept": "test integrity", "difficulty": 12},
+    {"id": "q08", "type": "multiple_choice", "prompt": "What is a good first response to a failing assertion?", "options": ["Compare the expected and actual values", "Inspect only the last line of the test", "Change the expected value until the test passes", "Skip the failing assertion and continue"], "correct": "Compare the expected and actual values", "explanation": "The difference tells you whether the issue is a value, type, branch, or formatting mistake.", "concept": "assertions", "difficulty": 12},
+    {"id": "q09", "type": "predict_output", "prompt": "What exception does this code raise?", "code": "value = 'not a number'\nprint(int(value))", "correct": "ValueError", "explanation": "The text cannot be parsed as an integer, so int raises ValueError.", "concept": "ValueError", "difficulty": 15},
+    {"id": "q10", "type": "multiple_choice", "prompt": "Why should you fix the first error before chasing later errors?", "options": ["Later errors may be consequences of the first failure", "Python only allows one variable", "The first error is always a style warning", "Later errors are never real"], "correct": "Later errors may be consequences of the first failure", "explanation": "One missing name or malformed statement can cause many downstream failures; fix the earliest clear cause first.", "concept": "debugging order", "difficulty": 18}
+  ]
+}

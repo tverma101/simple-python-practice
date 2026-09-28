@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "quiz_id": "platform.python.dictionaries.10",
+  "lesson_id": "python.dictionaries",
+  "title": "Python Dictionaries",
+  "description": "Use key-value data safely with lookup, get, update, items, and nested values.",
+  "source": "Ducky Beginner Python Quiz Series",
+  "shuffle_questions": true,
+  "review_mode": "missed_first",
+  "time_limit_seconds": 600,
+  "questions": [
+    {"id": "q01", "type": "predict_output", "prompt": "What does this code print?", "code": "scores = {'Maya': 92, 'Lee': 84}\nprint(scores['Maya'])", "correct": "92", "explanation": "The lookup uses the key 'Maya', and that key is associated with the value 92 in the dictionary.", "concept": "dictionary lookup", "difficulty": 12},
+    {"id": "q02", "type": "multiple_choice", "prompt": "What does dictionary.get('missing', 0) do when the key is absent?", "options": ["Returns 0", "Raises a KeyError", "Returns None", "Returns an empty string"], "correct": "Returns 0", "explanation": "get accepts a fallback value, avoiding a KeyError for a missing key.", "concept": "safe lookup", "difficulty": 15},
+    {"id": "q03", "type": "true_false", "prompt": "Dictionary keys must be unique within one dictionary.", "correct": "true", "explanation": "Assigning the same key again replaces its old value instead of creating a second entry.", "concept": "keys", "difficulty": 12},
+    {"id": "q04", "type": "predict_output", "prompt": "What does this code print?", "code": "profile = {'name': 'Ari'}\nprofile['age'] = 12\nprint(profile['age'])", "correct": "12", "explanation": "Assigning a new key adds it to the dictionary with the given value.", "concept": "dictionary assignment", "difficulty": 12},
+    {"id": "q05", "type": "multiple_choice", "prompt": "What does the in operator test on a dictionary?", "options": ["Whether a key exists", "Whether a value exists", "Whether the keys are sorted", "Whether a key maps to a truthy value"], "correct": "Whether a key exists", "explanation": "key in dictionary checks keys. Use dictionary.values() when you specifically need to search values.", "concept": "dictionary membership", "difficulty": 18},
+    {"id": "q06", "type": "predict_output", "prompt": "What does this code print?", "code": "counts = {'red': 2, 'blue': 5}\nprint(sum(counts.values()))", "correct": "7", "explanation": "values() returns the dictionary's numbers, 2 and 5, and sum adds those values to produce 7.", "concept": "dictionary values", "difficulty": 18},
+    {"id": "q07", "type": "multiple_choice", "prompt": "What does items() provide?", "options": ["Key-value pairs", "Only the values", "Only the keys", "A sorted list of pairs"], "correct": "Key-value pairs", "explanation": "items is useful for looping with for key, value in dictionary.items().", "concept": "items", "difficulty": 15},
+    {"id": "q08", "type": "true_false", "prompt": "A dictionary value can itself be another dictionary.", "correct": "true", "explanation": "Nested dictionaries represent structured data such as a profile containing an address dictionary.", "concept": "nested data", "difficulty": 12},
+    {"id": "q09", "type": "predict_output", "prompt": "What does this code print?", "code": "settings = {'dark_mode': False}\nsettings.update({'dark_mode': True})\nprint(settings['dark_mode'])", "correct": "True", "explanation": "update replaces the existing value for dark_mode with True.", "concept": "update", "difficulty": 18},
+    {"id": "q10", "type": "multiple_choice", "prompt": "Which literal creates an empty dictionary?", "options": ["{}", "[]", "()", "{'': ''}"], "correct": "{}", "explanation": "Curly braces with no key-value pairs create an empty dictionary; square brackets create a list.", "concept": "dictionary literals", "difficulty": 10}
+  ]
+}

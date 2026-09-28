@@ -1,0 +1,492 @@
+/* The problem-solving surface: description on one side, editor on the other.
+ *
+ * The layout the audit found unusable, and why each decision is what it is:
+ *
+ *   .workspace { display: grid; grid-template-columns: minmax(0, 1fr); }
+ *   @media (min-width: 60rem) { grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); }
+ *
+ * The old layout was `flex: 0 0 45%` with `min-width: 400px` and no media
+ * queries at all, inside a `body { overflow: hidden }`. A flex item's min-width
+ * is a hard floor, so the editor's width was `max(0, viewport - 400px)` -- zero
+ * at 375px, and with overflow hidden there was no scrollbar to recover it. A
+ * student on a phone could not write, run, or submit.
+ *
+ * `minmax(0, ...)` rather than a bare `1fr`: a grid track's automatic minimum is
+ * its content's min-content size, so a long unbroken line of code would
+ * otherwise push the track wider than the viewport. The old code fought this
+ * with `min-width: 0` in one place and not others.
+ *
+ * Stacking below the breakpoint is the fix, not a narrower split. Side-by-side
+ * panes on a phone are unusable at any ratio.
+ */
+
+.workspace {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: auto 1fr;
+  /* dvh tracks the *visible* viewport, so the mobile toolbar does not eat the
+   * bottom of the layout. The old UI used 100vh everywhere, which on iOS
+   * includes the collapsed toolbars -- and with overflow hidden that bottom
+   * strip was unreachable. */
+  height: 100dvh;
+  max-height: 100dvh;
+}
+
+@supports not (height: 100dvh) {
+  .workspace { height: 100vh; max-height: 100vh; }
+}
+
+@media (min-width: 60rem) {
+  .workspace {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+    grid-template-rows: auto minmax(0, 1fr);
+  }
+}
+
+/* ---- Top bar ---------------------------------------------------- */
+
+.topbar {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;          /* the old bar was nowrap and clipped */
+  align-items: center;
+  gap: var(--space-2) var(--space-3);
+  padding: var(--space-2) var(--space-4);
+  min-height: var(--target-min);
+  background: var(--bg-surface);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.topbar__title {
+  font-size: var(--text-base);
+  font-weight: 650;
+  margin: 0;
+  /* Wrap rather than nowrap+ellipsis: the old title truncated silently with no
+   * title attribute and no alternative access. */
+  overflow-wrap: anywhere;
+  min-width: 0;
+  flex: 1 1 12rem;
+}
+
+.topbar__spacer { flex: 1 1 auto; }
+
+.topbar__nav { display: flex; gap: var(--space-2); flex-wrap: wrap; }
+
+/* ---- Buttons ---------------------------------------------------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  /* 44px minimum as a rule, not a per-class hand list. */
+  min-height: var(--target-min);
+  min-width: var(--target-min);
+  padding: var(--space-2) var(--space-4);
+  font: inherit;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--text-primary);
+  background: var(--bg-raised);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.btn:hover:not(:disabled) { background: var(--bg-sunken); }
+.btn:active:not(:disabled) { transform: translateY(1px); }
+
+.btn:disabled,
+.btn[aria-disabled="true"] {
+  /* Opacity alone measured 2.53:1 in the old UI. Combine it with a cursor
+   * change and a border change so the state is not carried by dimming. */
+  opacity: 0.55;
+  cursor: not-allowed;
+  border-style: dashed;
+  background: var(--bg-sunken);
+}
+
+.btn--primary {
+  background: var(--info);
+  border-color: var(--info);
+  color: var(--text-inverse);
+}
+.btn--primary:hover:not(:disabled) { filter: brightness(1.08); }
+
+.btn--success { background: var(--success); border-color: var(--success); color: var(--text-inverse); }
+.btn--danger  { background: var(--danger);  border-color: var(--danger);  color: var(--text-inverse); }
+
+.btn--ghost { background: transparent; border-color: var(--border-default); }
+
+/* ---- Panes ------------------------------------------------------ */
+
+.pane {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;      /* so a flex/grid child can actually shrink */
+  overflow: hidden;
+  background: var(--bg-surface);
+}
+
+.pane--editor { border-top: 1px solid var(--border-subtle); }
+
+@media (min-width: 60rem) {
+  .pane--editor { border-top: 0; border-left: 1px solid var(--border-subtle); }
+}
+
+.pane__head {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+  padding: var(--space-2) var(--space-3);
+  min-height: var(--target-min);
+  border-bottom: 1px solid var(--border-subtle);
+  background: var(--bg-surface);
+}
+
+.pane__body { flex: 1 1 auto; min-height: 0; overflow-y: auto; overscroll-behavior: contain; }
+
+/* ---- Tabs -------------------------------------------------------
+ *
+ * Keyboard-complete this time. The old strip had correct ARIA and roving
+ * tabindex but *no keydown handler*, so the three tabindex="-1" tabs could not
+ * be reached at all -- and both of its submit paths force-switched results into
+ * that unreachable pane. The handler lives in problem.js; the styling here just
+ * makes the state visible.
+ */
+
+.tabs {
+  display: flex;
+  gap: var(--space-1);
+  padding: var(--space-2);
+  overflow-x: auto;            /* wrap-free but scrollable, not clipped */
+  border-bottom: 1px solid var(--border-subtle);
+  background: var(--bg-sunken);
+}
+
+.tab {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: var(--target-min);
+  padding: var(--space-2) var(--space-3);
+  font: inherit;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  white-space: nowrap;
+  color: var(--text-secondary);
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+}
+
+.tab:hover { background: var(--bg-surface); color: var(--text-primary); }
+
+.tab[aria-selected="true"] {
+  background: var(--bg-surface);
+  color: var(--text-primary);
+  border-color: var(--border-default);
+  /* State is carried by more than colour: the underline survives greyscale. */
+  box-shadow: inset 0 -3px 0 var(--border-focus);
+}
+
+.tab__count {
+  font-size: var(--text-xs);
+  padding: 0 6px;
+  border-radius: 999px;
+  background: var(--bg-sunken);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+}
+
+.tabpanel { padding: var(--space-4); }
+.tabpanel[hidden] { display: none; }
+
+/* ---- Problem description --------------------------------------- */
+
+.problem-title { font-size: var(--text-xl); margin-bottom: var(--space-2); }
+
+.problem-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-bottom: var(--space-4);
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: 2px 10px;
+  font-size: var(--text-xs);
+  font-weight: 600;
+  border-radius: 999px;
+  border: 1px solid var(--border-default);
+  background: var(--bg-sunken);
+  color: var(--text-secondary);
+}
+.chip--beginner     { color: var(--success); border-color: var(--border-success); background: var(--success-bg); }
+.chip--intermediate { color: var(--info);    border-color: var(--border-focus);   background: var(--info-bg); }
+.chip--advanced     { color: var(--danger);  border-color: var(--border-danger);  background: var(--danger-bg); }
+
+/* Explanations are line-structured: generated text carries indented worked
+ * examples and "- " bullets, and 100% of the library's descriptions are
+ * multi-line. Without pre-wrap the browser collapses all of that into a single
+ * run-on paragraph, so "Examples:" became inline text and every example lost its
+ * line break. Measured 2,547/2,547 affected. */
+.prose {
+  max-width: 68ch;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.prose h2 { font-size: var(--text-lg); margin-top: var(--space-5); }
+.prose h3 { font-size: var(--text-base); margin-top: var(--space-4); }
+.prose ul, .prose ol { padding-left: 1.4em; margin: 0 0 var(--space-4); }
+.prose li { margin-bottom: var(--space-1); }
+
+.signature {
+  display: block;
+  padding: var(--space-3);
+  margin: var(--space-3) 0;
+  background: var(--bg-code);
+  border: 1px solid var(--border-subtle);
+  border-left: 3px solid var(--border-focus);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-sm);
+  overflow-x: auto;
+}
+
+/* ---- Editor ----------------------------------------------------- */
+
+.editor-host { flex: 1 1 auto; min-height: 12rem; overflow: hidden; }
+.editor-host .cm-editor { height: 100%; }
+.editor-host .cm-scroller { font-family: var(--font-mono); font-size: var(--text-sm); line-height: 1.6; }
+.editor-host .cm-gutters { background: var(--bg-sunken); color: var(--text-tertiary); border-right: 1px solid var(--border-subtle); }
+
+/* The textarea fallback. Shown only if the editor module graph fails, which is
+ * the failure the old page turned into a dead UI. */
+.editor-fallback {
+  width: 100%;
+  height: 100%;
+  min-height: 12rem;
+  padding: var(--space-3);
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  line-height: 1.6;
+  color: var(--text-primary);
+  background: var(--bg-code);
+  border: 0;
+  resize: none;
+}
+.editor-fallback[hidden] { display: none; }
+
+/* ---- Save state -------------------------------------------------
+ *
+ * The old autosave reported failure only through console.error, with no retry
+ * and no beforeunload guard, so a dropped connection meant silent data loss.
+ * This is a visible, honest indicator with three states.
+ */
+
+.savestate {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: var(--text-xs);
+  color: var(--text-tertiary);
+  min-height: 1.5rem;
+}
+.savestate[data-state="saving"] { color: var(--text-secondary); }
+.savestate[data-state="saved"]  { color: var(--success); }
+.savestate[data-state="error"]  { color: var(--danger); font-weight: 600; }
+
+/* ---- Test results -----------------------------------------------
+ *
+ * Pass and fail must be distinguishable without colour: the old stylesheet
+ * overrode both with `!important` and they rendered as identical grey cards.
+ * Here each state carries an icon, a word, and a left rule, so it survives
+ * greyscale, colour-blindness, and a screen reader.
+ */
+
+.results { display: flex; flex-direction: column; gap: var(--space-3); }
+
+.result {
+  border: 1px solid var(--border-subtle);
+  border-left-width: 4px;
+  border-radius: var(--radius-md);
+  background: var(--bg-surface);
+  overflow: hidden;
+}
+
+.result--pass { border-left-color: var(--border-success); background: var(--success-bg); }
+.result--fail { border-left-color: var(--border-danger);  background: var(--danger-bg); }
+
+.result__head {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+  width: 100%;
+  min-height: var(--target-min);
+  padding: var(--space-2) var(--space-3);
+  font: inherit;
+  font-size: var(--text-sm);
+  text-align: left;
+  color: var(--text-primary);
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+}
+.result__head:hover { background: rgb(127 127 127 / 0.08); }
+
+.result__verdict { font-weight: 700; }
+.result--pass .result__verdict { color: var(--success); }
+.result--fail .result__verdict { color: var(--danger); }
+
+.result__body {
+  padding: var(--space-3);
+  border-top: 1px solid var(--border-subtle);
+  display: grid;
+  gap: var(--space-2);
+  font-size: var(--text-sm);
+}
+
+.kv { display: grid; grid-template-columns: minmax(5rem, auto) minmax(0, 1fr); gap: var(--space-2); }
+.kv__k { color: var(--text-secondary); font-weight: 600; }
+.kv__v { min-width: 0; }
+
+.output {
+  padding: var(--space-2);
+  background: var(--bg-code);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-xs);
+  line-height: 1.5;
+}
+
+/* ---- Summary banner -------------------------------------------- */
+
+.verdict {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-default);
+  font-weight: 600;
+}
+.verdict--pass { background: var(--success-bg); border-color: var(--border-success); color: var(--success); }
+.verdict--fail { background: var(--danger-bg);  border-color: var(--border-danger);  color: var(--danger); }
+.verdict__icon { font-size: 1.25rem; line-height: 1.2; }
+.verdict__text { min-width: 0; }
+.verdict__detail { font-weight: 400; color: var(--text-secondary); font-size: var(--text-sm); margin-top: var(--space-1); }
+
+/* ---- Empty / loading / error ----------------------------------- */
+
+.empty {
+  padding: var(--space-6) var(--space-4);
+  text-align: center;
+  color: var(--text-secondary);
+}
+
+.spinner {
+  display: inline-block;
+  width: 1em; height: 1em;
+  border: 2px solid var(--border-default);
+  border-top-color: var(--border-focus);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.notice {
+  padding: var(--space-3);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-default);
+  background: var(--bg-sunken);
+  font-size: var(--text-sm);
+}
+.notice--error { background: var(--danger-bg); border-color: var(--border-danger); color: var(--danger); }
+.notice--warn  { background: var(--warning-bg); border-color: var(--warning); color: var(--warning); }
+
+/* ---- Progress -------------------------------------------------- */
+
+.progress { height: 6px; border-radius: 999px; background: var(--bg-sunken); overflow: hidden; }
+.progress__fill { height: 100%; background: var(--success); transition: width 200ms ease; }
+
+/* Inline access-code form on the problem page.
+ *
+ * The home page styles its sign-in form inline; the problem page needs the same
+ * form in a topbar, and a form in a flex topbar without this collapses to an
+ * unlabelled 4px-wide input on narrow screens.
+ */
+.signin--inline {
+  display: flex;
+  gap: var(--space-2);
+  align-items: center;
+  flex-wrap: wrap;
+  margin: 0;
+}
+
+.signin--inline[hidden] {
+  display: none;
+}
+
+.signin--inline .input {
+  min-width: 9rem;
+  padding: var(--space-1) var(--space-2);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-sm);
+  background: var(--bg-surface);
+  color: var(--text-primary);
+  font: inherit;
+}
+
+.signin__status {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  min-width: 0;
+}
+
+@media (max-width: 640px) {
+  .signin--inline {
+    width: 100%;
+  }
+  .signin--inline .input {
+    flex: 1 1 8rem;
+  }
+}
+
+/* Pagination for the problem list. */
+.pager {
+  margin-top: var(--space-5);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--border-subtle);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  align-items: center;
+  justify-content: space-between;
+}
+
+.pager__status {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+}
+
+.pager__controls {
+  display: flex;
+  gap: var(--space-3);
+  align-items: center;
+}
+
+.pager__page {
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+  font-variant-numeric: tabular-nums;
+}

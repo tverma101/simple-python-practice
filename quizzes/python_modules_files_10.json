@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "quiz_id": "platform.python.modules_files.10",
+  "lesson_id": "python.modules_files",
+  "title": "Python Modules and Safe Files",
+  "description": "Practice standard-library imports, the main guard, and the basic idea of reading files with a context manager.",
+  "source": "Ducky Beginner Python Quiz Series",
+  "shuffle_questions": true,
+  "review_mode": "missed_first",
+  "time_limit_seconds": 600,
+  "questions": [
+    {"id": "q01", "type": "multiple_choice", "prompt": "What does import math make available?", "options": ["The math module under the name math", "The names from math without a module prefix", "Every function in math runs immediately", "A local file named math is created"], "correct": "The math module under the name math", "explanation": "After import math, code can use names such as math.sqrt and math.pi.", "concept": "imports", "difficulty": 12},
+    {"id": "q02", "type": "predict_output", "prompt": "What does this code print?", "code": "import math\nprint(math.sqrt(16))", "correct": "4.0", "explanation": "math.sqrt returns the square root as a floating-point value, so the result displays as 4.0.", "concept": "module functions", "difficulty": 15},
+    {"id": "q03", "type": "true_false", "prompt": "The main guard prevents main() from running when the file is imported as a module.", "correct": "true", "explanation": "if __name__ == '__main__' is true when the file is run directly, not when it is imported for tests.", "concept": "main guard", "difficulty": 18},
+    {"id": "q04", "type": "multiple_choice", "prompt": "Which form imports sqrt directly from math?", "options": ["from math import sqrt", "import sqrt from math", "math.import(sqrt)", "import math.sqrt"], "correct": "from math import sqrt", "explanation": "from module import name brings the selected name into the current module.", "concept": "from import", "difficulty": 15},
+    {"id": "q05", "type": "multiple_choice", "prompt": "Why is with open(path) useful?", "options": ["It closes the file automatically when the block ends", "It prevents all file errors", "It reads the entire file automatically", "It changes the file to read-only"], "correct": "It closes the file automatically when the block ends", "explanation": "A context manager cleans up the file even when the block exits because of an error.", "concept": "context managers", "difficulty": 20},
+    {"id": "q06", "type": "predict_output", "prompt": "What does this code print?", "code": "from pathlib import Path\npath = Path('notes.txt')\nprint(path.suffix)", "correct": ".txt", "explanation": "Path.suffix is the file extension, including the leading dot.", "concept": "pathlib", "difficulty": 18},
+    {"id": "q07", "type": "multiple_choice", "prompt": "Which mode opens a file for reading text?", "options": ["'r'", "'w'", "'a'", "'x'"], "correct": "'r'", "explanation": "r means read. w writes and can replace existing contents; a appends.", "concept": "file modes", "difficulty": 12},
+    {"id": "q08", "type": "true_false", "prompt": "A module is another Python file whose functions and values can be imported.", "correct": "true", "explanation": "Modules let a program organize reusable code across files.", "concept": "modules", "difficulty": 10},
+    {"id": "q09", "type": "predict_output", "prompt": "What does this code print?", "code": "def run():\n    return 'ready'\n\nif __name__ == '__main__':\n    print(run())", "correct": "ready", "explanation": "When run directly, the main guard calls run and prints its returned value.", "concept": "main guard behavior", "difficulty": 20},
+    {"id": "q10", "type": "multiple_choice", "prompt": "What is the safest place for a lesson's generated output file?", "options": ["Inside the provided lesson workspace", "An arbitrary system folder", "The test source file", "The user's home directory regardless of the assignment"], "correct": "Inside the provided lesson workspace", "explanation": "Keeping files inside the workspace makes the program portable and respects the runner's isolation boundary.", "concept": "workspace paths", "difficulty": 18}
+  ]
+}

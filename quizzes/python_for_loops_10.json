@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "quiz_id": "platform.python.for_loops.10",
+  "lesson_id": "python.for_loops",
+  "title": "Python for Loops",
+  "description": "Trace repeated work with for, range, enumerate, break, and continue.",
+  "source": "Ducky Beginner Python Quiz Series",
+  "shuffle_questions": true,
+  "review_mode": "missed_first",
+  "time_limit_seconds": 600,
+  "questions": [
+    {"id": "q01", "type": "predict_output", "prompt": "What does this code print?", "code": "for number in range(3):\n    print(number)", "correct": "0\n1\n2", "explanation": "range(3) generates 0, 1, and 2: it starts at zero and stops before the endpoint 3.", "concept": "range", "difficulty": 12},
+    {"id": "q02", "type": "multiple_choice", "prompt": "What does range(2, 6) produce?", "options": ["2, 3, 4, 5", "2, 3, 4, 5, 6", "0, 1, 2, 3, 4, 5", "6, 5, 4, 3, 2"], "correct": "2, 3, 4, 5", "explanation": "The start is included and the stop value 6 is excluded.", "concept": "range boundaries", "difficulty": 15},
+    {"id": "q03", "type": "true_false", "prompt": "A for loop can iterate directly over the values in a list.", "correct": "true", "explanation": "for item in items assigns each list value to item one at a time.", "concept": "iterating lists", "difficulty": 10},
+    {"id": "q04", "type": "predict_output", "prompt": "What does this code print?", "code": "total = 0\nfor value in [2, 3, 4]:\n    total += value\nprint(total)", "correct": "9", "explanation": "The loop adds each value to total: 0 + 2 + 3 + 4 equals 9.", "concept": "accumulators", "difficulty": 15},
+    {"id": "q05", "type": "multiple_choice", "prompt": "What does enumerate(items) provide during a loop?", "options": ["An index and a value", "Only the value", "The value and its index in reverse order", "A pair of sorted lists"], "correct": "An index and a value", "explanation": "enumerate is useful when code needs both the position and the item being visited.", "concept": "enumerate", "difficulty": 18},
+    {"id": "q06", "type": "predict_output", "prompt": "What does this code print?", "code": "for letter in 'cat':\n    if letter == 'a':\n        continue\n    print(letter)", "correct": "c\nt", "explanation": "continue skips the print for a and lets the loop continue with t.", "concept": "continue", "difficulty": 20},
+    {"id": "q07", "type": "multiple_choice", "prompt": "What does break do inside a loop?", "options": ["Stops the nearest loop immediately", "Skips the rest of the current iteration", "Starts the loop again from its first item", "Returns from the enclosing function"], "correct": "Stops the nearest loop immediately", "explanation": "break exits the nearest enclosing loop; execution continues after the loop.", "concept": "break", "difficulty": 12},
+    {"id": "q08", "type": "true_false", "prompt": "The loop variable is updated automatically by a for loop as it visits each item.", "correct": "true", "explanation": "Python assigns the next item to the loop variable at the start of each iteration.", "concept": "loop variables", "difficulty": 10},
+    {"id": "q09", "type": "predict_output", "prompt": "What does this code print?", "code": "result = []\nfor number in range(1, 4):\n    result.append(number * 2)\nprint(result)", "correct": "[2, 4, 6]", "explanation": "The loop visits 1, 2, and 3, doubles each, and appends the result.", "concept": "building lists", "difficulty": 18},
+    {"id": "q10", "type": "multiple_choice", "prompt": "What is the usual purpose of an accumulator variable?", "options": ["To build a result across iterations", "To track only whether the loop ran", "To choose the next loop range", "To hold the loop's first value"], "correct": "To build a result across iterations", "explanation": "An accumulator starts with an initial value and is updated repeatedly, such as a running total.", "concept": "accumulators", "difficulty": 15}
+  ]
+}

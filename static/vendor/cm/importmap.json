@@ -1,0 +1,20 @@
+{
+  "imports": {
+    "@codemirror/state": "/static/vendor/cm/state.js",
+    "@codemirror/view": "/static/vendor/cm/view.js",
+    "@codemirror/language": "/static/vendor/cm/language.js",
+    "@codemirror/commands": "/static/vendor/cm/commands.js",
+    "@codemirror/search": "/static/vendor/cm/search.js",
+    "@codemirror/autocomplete": "/static/vendor/cm/autocomplete.js",
+    "@codemirror/lang-python": "/static/vendor/cm/lang-python.js",
+    "@codemirror/theme-one-dark": "/static/vendor/cm/theme-one-dark.js",
+    "@lezer/python": "/static/vendor/cm/python.js",
+    "@lezer/common": "/static/vendor/cm/common.js",
+    "@lezer/lr": "/static/vendor/cm/lr.js",
+    "@lezer/highlight": "/static/vendor/cm/highlight.js",
+    "style-mod": "/static/vendor/cm/style-mod.js",
+    "w3c-keyname": "/static/vendor/cm/w3c-keyname.js",
+    "crelt": "/static/vendor/cm/crelt.js",
+    "@marijn/find-cluster-break": "/static/vendor/cm/marijn-find-cluster-break.js"
+  }
+}

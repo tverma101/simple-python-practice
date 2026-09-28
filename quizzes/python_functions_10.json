@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "quiz_id": "platform.python.functions.10",
+  "lesson_id": "python.functions",
+  "title": "Python Functions: Return Values",
+  "description": "Practice reading and writing small functions. The questions assume you know variables and basic expressions.",
+  "source": "Ducky Beginner Python Quiz Series",
+  "shuffle_questions": true,
+  "review_mode": "missed_first",
+  "time_limit_seconds": 600,
+  "questions": [
+    {"id": "q01", "type": "multiple_choice", "prompt": "What does a return statement do inside a function?", "options": ["Sends a value back to the caller", "Prints a value automatically", "Defines another function with the same name", "Stops the caller before it receives a result"], "correct": "Sends a value back to the caller", "explanation": "return ends the current function call and gives its value back to the code that called the function.", "concept": "return values", "difficulty": 15},
+    {"id": "q02", "type": "predict_output", "prompt": "What does this code print?", "code": "def add(left, right):\n    return left + right\n\nprint(add(3, 4))", "correct": "7", "explanation": "The call supplies 3 and 4 for the two parameters, and the function returns their sum.", "concept": "function calls", "difficulty": 15},
+    {"id": "q03", "type": "true_false", "prompt": "A function with no value-bearing return statement returns None by default.", "correct": "true", "explanation": "When execution reaches the end of a function without returning a value, Python returns None.", "concept": "None", "difficulty": 12},
+    {"id": "q04", "type": "multiple_choice", "prompt": "Which line correctly calls a function named greet?", "options": ["greet()", "call greet", "def greet()", "greet:"], "correct": "greet()", "explanation": "Parentheses after a function name make a call. def defines the function rather than calling it.", "concept": "function syntax", "difficulty": 12},
+    {"id": "q05", "type": "predict_output", "prompt": "What does this code print?", "code": "def welcome(name):\n    return 'Hello, ' + name\n\nprint(welcome('Maya'))", "correct": "Hello, Maya", "explanation": "The argument Maya is joined to the greeting string and returned.", "concept": "string return", "difficulty": 15},
+    {"id": "q06", "type": "multiple_choice", "prompt": "In def double(number), what is number?", "options": ["A parameter", "An argument", "A return value", "The function name"], "correct": "A parameter", "explanation": "A parameter is the named input a function receives when it is called.", "concept": "parameters", "difficulty": 12},
+    {"id": "q07", "type": "predict_output", "prompt": "What does this code print?", "code": "def sign(value):\n    if value > 0:\n        return 'positive'\n    return 'not positive'\n\nprint(sign(2))", "correct": "positive", "explanation": "Because 2 is greater than zero, the first return runs and the later return is skipped.", "concept": "conditional return", "difficulty": 20},
+    {"id": "q08", "type": "true_false", "prompt": "The same function can be called more than once with different arguments.", "correct": "true", "explanation": "A function is reusable; each call gets its own parameter values and local execution.", "concept": "reuse", "difficulty": 10},
+    {"id": "q09", "type": "multiple_choice", "prompt": "Which statement best describes a user-defined function?", "options": ["A reusable block of code with a name", "A value that can only be text", "A special kind of comment", "A file that must be downloaded"], "correct": "A reusable block of code with a name", "explanation": "def creates a named, reusable block that can accept inputs and return a result.", "concept": "function design", "difficulty": 12},
+    {"id": "q10", "type": "predict_output", "prompt": "What does this code print?", "code": "def triple(number):\n    return number * 3\n\nprint(triple(4))", "correct": "12", "explanation": "The function multiplies its input, 4, by 3 and returns 12.", "concept": "numeric return", "difficulty": 12}
+  ]
+}

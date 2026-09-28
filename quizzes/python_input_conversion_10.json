@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "quiz_id": "platform.python.input_conversion.10",
+  "lesson_id": "python.input_conversion",
+  "title": "Python Input and Conversion",
+  "description": "Handle text from input and convert it deliberately before doing numeric work.",
+  "source": "Ducky Beginner Python Quiz Series",
+  "shuffle_questions": true,
+  "review_mode": "missed_first",
+  "time_limit_seconds": 600,
+  "questions": [
+    {"id": "q01", "type": "multiple_choice", "prompt": "What type does input() return before conversion?", "options": ["str", "int", "float", "bool"], "correct": "str", "explanation": "Keyboard input arrives as text, even when the student types digits.", "concept": "input type", "difficulty": 12},
+    {"id": "q02", "type": "predict_output", "prompt": "What does this code print?", "code": "text = '12'\nnumber = int(text)\nprint(number + 3)", "correct": "15", "explanation": "int converts the text 12 into the integer 12 before addition.", "concept": "int conversion", "difficulty": 12},
+    {"id": "q03", "type": "true_false", "prompt": "The expression '2' + '3' produces the text '23'.", "correct": "true", "explanation": "Both operands are strings, so + concatenates them rather than adding numeric values.", "concept": "string concatenation", "difficulty": 15},
+    {"id": "q04", "type": "multiple_choice", "prompt": "Which conversion is appropriate for the text '3.5'?", "options": ["float('3.5')", "int('3.5')", "str('3.5')", "round('3.5')"], "correct": "float('3.5')", "explanation": "float accepts a decimal representation. int('3.5') raises ValueError because it is not whole-number text.", "concept": "float conversion", "difficulty": 18},
+    {"id": "q05", "type": "predict_output", "prompt": "What does this code print?", "code": "first = '4'\nsecond = '5'\nprint(int(first) + int(second))", "correct": "9", "explanation": "Each string is converted to an integer before the values are added.", "concept": "converting multiple inputs", "difficulty": 12},
+    {"id": "q06", "type": "multiple_choice", "prompt": "What exception can int('hello') raise?", "options": ["ValueError", "KeyError", "IndexError", "SyntaxError"], "correct": "ValueError", "explanation": "The text has the wrong value format for integer conversion, so Python raises ValueError.", "concept": "conversion errors", "difficulty": 18},
+    {"id": "q07", "type": "true_false", "prompt": "Calling input('Name: ') displays the prompt before waiting for the answer.", "correct": "true", "explanation": "The string argument is shown to the user, then input waits for text.", "concept": "input prompt", "difficulty": 10},
+    {"id": "q08", "type": "predict_output", "prompt": "What does this code print?", "code": "age = 12\nprint('Age: ' + str(age))", "correct": "Age: 12", "explanation": "str converts the integer to text so it can be joined with the other string.", "concept": "str conversion", "difficulty": 12},
+    {"id": "q09", "type": "multiple_choice", "prompt": "What is a safe design for functions used by automated tests?", "options": ["Accept arguments and return values", "Read from global state instead", "Print the answer instead of returning it", "Depend on a fixed prompt for every call"], "correct": "Accept arguments and return values", "explanation": "Argument-based functions are deterministic and testable; interactive prompts belong in a user-facing main flow.", "concept": "testable input", "difficulty": 22},
+    {"id": "q10", "type": "predict_output", "prompt": "What does this code print?", "code": "raw = '  ducky  '\nprint(raw.strip())", "correct": "ducky", "explanation": "strip removes the leading and trailing spaces from the text.", "concept": "cleaning input", "difficulty": 12}
+  ]
+}
